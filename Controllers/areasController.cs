@@ -12,48 +12,50 @@ using MVCAPI.Models;
 
 namespace MVCAPI.Controllers
 {
-    public class empleadosController : ApiController
+    public class areasController : ApiController
     {
         private base_makingappsEntities db = new base_makingappsEntities();
 
-        // GET: api/empleados
-        public IEnumerable<Empleados> Getempleado()
+        // GET: api/areas
+        public IEnumerable<AreasObject> Getarea()
         {
-
-            var all = (from x in db.empleado select new Empleados { ID_EMPLEADO = x.ID_EMPLEADO, NOMBRE_EMPLEADO = x.NOMBRE_EMPLEADO,
-                APELLIDOS_EMPLEADO = x.APELLIDOS_EMPLEADO, CORREO_EMPLEADO = x.CORREO_EMPLEADO, DIRECCION_EMPLEADO = x.DIRECCION_EMPLEADO, 
-                TELEFONO_EMPLEADO=x.TELEFONO_EMPLEADO}).ToList();
+            var all = (from x in db.area
+                       select new AreasObject
+                       {
+                           ID_AREA = x.ID_AREA,
+                           NOMBRE_AREA = x.NOMBRE_AREA
+                       }).ToList();
             return all;
         }
 
-        // GET: api/empleados/5
-        [ResponseType(typeof(empleado))]
-        public IHttpActionResult Getempleado(int id)
+        // GET: api/areas/5
+        [ResponseType(typeof(area))]
+        public IHttpActionResult Getarea(int id)
         {
-            empleado empleado = db.empleado.Find(id);
-            if (empleado == null)
+            area area = db.area.Find(id);
+            if (area == null)
             {
                 return NotFound();
             }
 
-            return Ok(empleado);
+            return Ok(area);
         }
 
-        // PUT: api/empleados/5
+        // PUT: api/areas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult Putempleado(int id, empleado empleado)
+        public IHttpActionResult Putarea(int id, area area)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != empleado.ID_EMPLEADO)
+            if (id != area.ID_AREA)
             {
                 return BadRequest();
             }
 
-            db.Entry(empleado).State = EntityState.Modified;
+            db.Entry(area).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +63,7 @@ namespace MVCAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!empleadoExists(id))
+                if (!areaExists(id))
                 {
                     return NotFound();
                 }
@@ -74,16 +76,16 @@ namespace MVCAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/empleados
-        [ResponseType(typeof(empleado))]
-        public IHttpActionResult Postempleado(empleado empleado)
+        // POST: api/areas
+        [ResponseType(typeof(area))]
+        public IHttpActionResult Postarea(area area)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.empleado.Add(empleado);
+            db.area.Add(area);
 
             try
             {
@@ -91,7 +93,7 @@ namespace MVCAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (empleadoExists(empleado.ID_EMPLEADO))
+                if (areaExists(area.ID_AREA))
                 {
                     return Conflict();
                 }
@@ -101,23 +103,23 @@ namespace MVCAPI.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = empleado.ID_EMPLEADO }, empleado);
+            return CreatedAtRoute("DefaultApi", new { id = area.ID_AREA }, area);
         }
 
-        // DELETE: api/empleados/5
-        [ResponseType(typeof(empleado))]
-        public IHttpActionResult Deleteempleado(int id)
+        // DELETE: api/areas/5
+        [ResponseType(typeof(area))]
+        public IHttpActionResult Deletearea(int id)
         {
-            empleado empleado = db.empleado.Find(id);
-            if (empleado == null)
+            area area = db.area.Find(id);
+            if (area == null)
             {
                 return NotFound();
             }
 
-            db.empleado.Remove(empleado);
+            db.area.Remove(area);
             db.SaveChanges();
 
-            return Ok(empleado);
+            return Ok(area);
         }
 
         protected override void Dispose(bool disposing)
@@ -129,9 +131,9 @@ namespace MVCAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool empleadoExists(int id)
+        private bool areaExists(int id)
         {
-            return db.empleado.Count(e => e.ID_EMPLEADO == id) > 0;
+            return db.area.Count(e => e.ID_AREA == id) > 0;
         }
     }
 }
