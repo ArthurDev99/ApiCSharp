@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="base_makingappsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="administrador">
+    <Key>
+      <PropertyRef Name="ID_ADMINISTRADOR" />
+    </Key>
+    <Property Name="ID_ADMINISTRADOR" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_ADMINISTRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="APELLIDOS_ADMINISTRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="CORREO_ADMINSITRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="CONTRASENA_ADMINISTRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="area">
+    <Key>
+      <PropertyRef Name="ID_AREA" />
+    </Key>
+    <Property Name="ID_AREA" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_AREA" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="empleado" Relationship="Self.fk_EMPLEADO_AREA" FromRole="area" ToRole="empleado" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="ID_EMPLEADO" />
+    </Key>
+    <Property Name="ID_EMPLEADO" Type="Int32" Nullable="false" />
+    <Property Name="FK_ID_AREA" Type="Int32" Nullable="false" />
+    <Property Name="NOMBRE_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="APELLIDOS_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="CORREO_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="DIRECCION_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="TELEFONO_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="area" Relationship="Self.fk_EMPLEADO_AREA" FromRole="empleado" ToRole="area" />
+  </EntityType>
+  <Association Name="fk_EMPLEADO_AREA">
+    <End Role="area" Type="Self.area" Multiplicity="1" />
+    <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="area">
+        <PropertyRef Name="ID_AREA" />
+      </Principal>
+      <Dependent Role="empleado">
+        <PropertyRef Name="FK_ID_AREA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="base_makingappsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="administrador" EntityType="Self.administrador" />
+    <EntitySet Name="area" EntityType="Self.area" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" />
+    <AssociationSet Name="fk_EMPLEADO_AREA" Association="Self.fk_EMPLEADO_AREA">
+      <End Role="area" EntitySet="area" />
+      <End Role="empleado" EntitySet="empleado" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

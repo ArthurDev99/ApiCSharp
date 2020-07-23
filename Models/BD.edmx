@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="base_makingappsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrador">
+          <Key>
+            <PropertyRef Name="ID_ADMINISTRADOR" />
+          </Key>
+          <Property Name="ID_ADMINISTRADOR" Type="int" Nullable="false" />
+          <Property Name="NOMBRE_ADMINISTRADOR" Type="varchar" MaxLength="45" />
+          <Property Name="APELLIDOS_ADMINISTRADOR" Type="varchar" MaxLength="45" />
+          <Property Name="CORREO_ADMINSITRADOR" Type="varchar" MaxLength="45" />
+          <Property Name="CONTRASENA_ADMINISTRADOR" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="ID_AREA" />
+          </Key>
+          <Property Name="ID_AREA" Type="int" Nullable="false" />
+          <Property Name="NOMBRE_AREA" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="ID_EMPLEADO" />
+          </Key>
+          <Property Name="ID_EMPLEADO" Type="int" Nullable="false" />
+          <Property Name="FK_ID_AREA" Type="int" Nullable="false" />
+          <Property Name="NOMBRE_EMPLEADO" Type="varchar" MaxLength="45" />
+          <Property Name="APELLIDOS_EMPLEADO" Type="varchar" MaxLength="45" />
+          <Property Name="CORREO_EMPLEADO" Type="varchar" MaxLength="45" />
+          <Property Name="DIRECCION_EMPLEADO" Type="varchar" MaxLength="45" />
+          <Property Name="TELEFONO_EMPLEADO" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <Association Name="fk_EMPLEADO_AREA">
+          <End Role="area" Type="Self.area" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="ID_AREA" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="FK_ID_AREA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="base_makingappsModelStoreContainer">
+          <EntitySet Name="administrador" EntityType="Self.administrador" Schema="base_makingapps" store:Type="Tables" />
+          <EntitySet Name="area" EntityType="Self.area" Schema="base_makingapps" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="base_makingapps" store:Type="Tables" />
+          <AssociationSet Name="fk_EMPLEADO_AREA" Association="Self.fk_EMPLEADO_AREA">
+            <End Role="area" EntitySet="area" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="base_makingappsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administrador">
+          <Key>
+            <PropertyRef Name="ID_ADMINISTRADOR" />
+          </Key>
+          <Property Name="ID_ADMINISTRADOR" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE_ADMINISTRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOS_ADMINISTRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CORREO_ADMINSITRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CONTRASENA_ADMINISTRADOR" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="area">
+          <Key>
+            <PropertyRef Name="ID_AREA" />
+          </Key>
+          <Property Name="ID_AREA" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE_AREA" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="empleado" Relationship="Self.fk_EMPLEADO_AREA" FromRole="area" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="ID_EMPLEADO" />
+          </Key>
+          <Property Name="ID_EMPLEADO" Type="Int32" Nullable="false" />
+          <Property Name="FK_ID_AREA" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOS_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CORREO_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO_EMPLEADO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="area" Relationship="Self.fk_EMPLEADO_AREA" FromRole="empleado" ToRole="area" />
+        </EntityType>
+        <Association Name="fk_EMPLEADO_AREA">
+          <End Role="area" Type="Self.area" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="area">
+              <PropertyRef Name="ID_AREA" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="FK_ID_AREA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="base_makingappsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administrador" EntityType="Self.administrador" />
+          <EntitySet Name="area" EntityType="Self.area" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <AssociationSet Name="fk_EMPLEADO_AREA" Association="Self.fk_EMPLEADO_AREA">
+            <End Role="area" EntitySet="area" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="base_makingappsModelStoreContainer" CdmEntityContainer="base_makingappsEntities">
+          <EntitySetMapping Name="administrador">
+            <EntityTypeMapping TypeName="base_makingappsModel.administrador">
+              <MappingFragment StoreEntitySet="administrador">
+                <ScalarProperty Name="ID_ADMINISTRADOR" ColumnName="ID_ADMINISTRADOR" />
+                <ScalarProperty Name="NOMBRE_ADMINISTRADOR" ColumnName="NOMBRE_ADMINISTRADOR" />
+                <ScalarProperty Name="APELLIDOS_ADMINISTRADOR" ColumnName="APELLIDOS_ADMINISTRADOR" />
+                <ScalarProperty Name="CORREO_ADMINSITRADOR" ColumnName="CORREO_ADMINSITRADOR" />
+                <ScalarProperty Name="CONTRASENA_ADMINISTRADOR" ColumnName="CONTRASENA_ADMINISTRADOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="area">
+            <EntityTypeMapping TypeName="base_makingappsModel.area">
+              <MappingFragment StoreEntitySet="area">
+                <ScalarProperty Name="ID_AREA" ColumnName="ID_AREA" />
+                <ScalarProperty Name="NOMBRE_AREA" ColumnName="NOMBRE_AREA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="base_makingappsModel.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="ID_EMPLEADO" ColumnName="ID_EMPLEADO" />
+                <ScalarProperty Name="FK_ID_AREA" ColumnName="FK_ID_AREA" />
+                <ScalarProperty Name="NOMBRE_EMPLEADO" ColumnName="NOMBRE_EMPLEADO" />
+                <ScalarProperty Name="APELLIDOS_EMPLEADO" ColumnName="APELLIDOS_EMPLEADO" />
+                <ScalarProperty Name="CORREO_EMPLEADO" ColumnName="CORREO_EMPLEADO" />
+                <ScalarProperty Name="DIRECCION_EMPLEADO" ColumnName="DIRECCION_EMPLEADO" />
+                <ScalarProperty Name="TELEFONO_EMPLEADO" ColumnName="TELEFONO_EMPLEADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

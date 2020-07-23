@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="base_makingappsModelStoreContainer" CdmEntityContainer="base_makingappsEntities">
+    <EntitySetMapping Name="administrador">
+      <EntityTypeMapping TypeName="base_makingappsModel.administrador">
+        <MappingFragment StoreEntitySet="administrador">
+          <ScalarProperty Name="ID_ADMINISTRADOR" ColumnName="ID_ADMINISTRADOR" />
+          <ScalarProperty Name="NOMBRE_ADMINISTRADOR" ColumnName="NOMBRE_ADMINISTRADOR" />
+          <ScalarProperty Name="APELLIDOS_ADMINISTRADOR" ColumnName="APELLIDOS_ADMINISTRADOR" />
+          <ScalarProperty Name="CORREO_ADMINSITRADOR" ColumnName="CORREO_ADMINSITRADOR" />
+          <ScalarProperty Name="CONTRASENA_ADMINISTRADOR" ColumnName="CONTRASENA_ADMINISTRADOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="area">
+      <EntityTypeMapping TypeName="base_makingappsModel.area">
+        <MappingFragment StoreEntitySet="area">
+          <ScalarProperty Name="ID_AREA" ColumnName="ID_AREA" />
+          <ScalarProperty Name="NOMBRE_AREA" ColumnName="NOMBRE_AREA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empleado">
+      <EntityTypeMapping TypeName="base_makingappsModel.empleado">
+        <MappingFragment StoreEntitySet="empleado">
+          <ScalarProperty Name="ID_EMPLEADO" ColumnName="ID_EMPLEADO" />
+          <ScalarProperty Name="FK_ID_AREA" ColumnName="FK_ID_AREA" />
+          <ScalarProperty Name="NOMBRE_EMPLEADO" ColumnName="NOMBRE_EMPLEADO" />
+          <ScalarProperty Name="APELLIDOS_EMPLEADO" ColumnName="APELLIDOS_EMPLEADO" />
+          <ScalarProperty Name="CORREO_EMPLEADO" ColumnName="CORREO_EMPLEADO" />
+          <ScalarProperty Name="DIRECCION_EMPLEADO" ColumnName="DIRECCION_EMPLEADO" />
+          <ScalarProperty Name="TELEFONO_EMPLEADO" ColumnName="TELEFONO_EMPLEADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

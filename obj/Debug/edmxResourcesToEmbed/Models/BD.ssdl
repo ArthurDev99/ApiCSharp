@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="base_makingappsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="administrador">
+    <Key>
+      <PropertyRef Name="ID_ADMINISTRADOR" />
+    </Key>
+    <Property Name="ID_ADMINISTRADOR" Type="int" Nullable="false" />
+    <Property Name="NOMBRE_ADMINISTRADOR" Type="varchar" MaxLength="45" />
+    <Property Name="APELLIDOS_ADMINISTRADOR" Type="varchar" MaxLength="45" />
+    <Property Name="CORREO_ADMINSITRADOR" Type="varchar" MaxLength="45" />
+    <Property Name="CONTRASENA_ADMINISTRADOR" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="area">
+    <Key>
+      <PropertyRef Name="ID_AREA" />
+    </Key>
+    <Property Name="ID_AREA" Type="int" Nullable="false" />
+    <Property Name="NOMBRE_AREA" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="ID_EMPLEADO" />
+    </Key>
+    <Property Name="ID_EMPLEADO" Type="int" Nullable="false" />
+    <Property Name="FK_ID_AREA" Type="int" Nullable="false" />
+    <Property Name="NOMBRE_EMPLEADO" Type="varchar" MaxLength="45" />
+    <Property Name="APELLIDOS_EMPLEADO" Type="varchar" MaxLength="45" />
+    <Property Name="CORREO_EMPLEADO" Type="varchar" MaxLength="45" />
+    <Property Name="DIRECCION_EMPLEADO" Type="varchar" MaxLength="45" />
+    <Property Name="TELEFONO_EMPLEADO" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <Association Name="fk_EMPLEADO_AREA">
+    <End Role="area" Type="Self.area" Multiplicity="1" />
+    <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="area">
+        <PropertyRef Name="ID_AREA" />
+      </Principal>
+      <Dependent Role="empleado">
+        <PropertyRef Name="FK_ID_AREA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="base_makingappsModelStoreContainer">
+    <EntitySet Name="administrador" EntityType="Self.administrador" Schema="base_makingapps" store:Type="Tables" />
+    <EntitySet Name="area" EntityType="Self.area" Schema="base_makingapps" store:Type="Tables" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" Schema="base_makingapps" store:Type="Tables" />
+    <AssociationSet Name="fk_EMPLEADO_AREA" Association="Self.fk_EMPLEADO_AREA">
+      <End Role="area" EntitySet="area" />
+      <End Role="empleado" EntitySet="empleado" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
