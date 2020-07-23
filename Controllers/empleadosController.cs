@@ -20,7 +20,7 @@ namespace MVCAPI.Controllers
         public IEnumerable<Empleados> Getempleado()
         {
 
-            var all = (from x in db.empleado select new Empleados { ID_EMPLEADO = x.ID_EMPLEADO, NOMBRE_EMPLEADO = x.NOMBRE_EMPLEADO,
+            var all = (from x in db.empleado select new Empleados { ID_EMPLEADO = x.ID_EMPLEADO,FK_ID_AREA = x.FK_ID_AREA, NOMBRE_EMPLEADO = x.NOMBRE_EMPLEADO,
                 APELLIDOS_EMPLEADO = x.APELLIDOS_EMPLEADO, CORREO_EMPLEADO = x.CORREO_EMPLEADO, DIRECCION_EMPLEADO = x.DIRECCION_EMPLEADO, 
                 TELEFONO_EMPLEADO=x.TELEFONO_EMPLEADO}).ToList();
             return all;
