@@ -31,12 +31,24 @@ namespace MVCAPI.Controllers
         public IHttpActionResult Getempleado(int id)
         {
             empleado empleado = db.empleado.Find(id);
+
             if (empleado == null)
             {
                 return NotFound();
             }
 
-            return Ok(empleado);
+            Empleados emp = new Empleados();
+
+            emp.ID_EMPLEADO = empleado.ID_EMPLEADO;
+            emp.NOMBRE_EMPLEADO = empleado.NOMBRE_EMPLEADO;
+            emp.FK_ID_AREA = empleado.FK_ID_AREA;
+            emp.APELLIDOS_EMPLEADO = empleado.APELLIDOS_EMPLEADO;
+            emp.CORREO_EMPLEADO = empleado.CORREO_EMPLEADO;
+            emp.DIRECCION_EMPLEADO = empleado.DIRECCION_EMPLEADO;
+            emp.TELEFONO_EMPLEADO = empleado.TELEFONO_EMPLEADO;
+
+            
+            return Ok(emp);
         }
 
         // PUT: api/empleados/5
