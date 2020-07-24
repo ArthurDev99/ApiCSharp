@@ -38,7 +38,11 @@ namespace MVCAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(area);
+            AreasObject ar = new AreasObject();
+            ar.ID_AREA = area.ID_AREA;
+            ar.NOMBRE_AREA = area.NOMBRE_AREA;
+
+            return Ok(ar);
         }
 
         // PUT: api/areas/5

@@ -30,15 +30,18 @@ namespace MVCAPI.Controllers
 
         // GET: api/administradors/5
         [ResponseType(typeof(administrador))]
-        public IHttpActionResult Getadministrador(int id)
+        public IHttpActionResult Getadministrador(String email)
         {
-            administrador administrador = db.administrador.Find(id);
+            administrador administrador = db.administrador.FirstOrDefault(f => f.CORREO_ADMINSITRADOR.Equals(email));
             if (administrador == null)
             {
                 return NotFound();
             }
 
-            return Ok(administrador);
+            Administradores admin = new Administradores();
+            admin.CORREO_ADMINSITRADOR = administrador.CORREO_ADMINSITRADOR;
+            admin.CONTRASENA_ADMINISTRADOR = administrador.CONTRASENA_ADMINISTRADOR;
+            return Ok(admin);
         }
 
         // PUT: api/administradors/5
